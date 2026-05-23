@@ -69,7 +69,7 @@
                         @if(!$project->is_published)
                         <button
                             onclick="confirmDelete({{ $project->id }}, '{{ addslashes($project->name) }}')"
-                            class="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-400 hover:text-red-500 hover:border-red-300 dark:hover:border-red-500 flex items-center justify-center shadow-sm opacity-0 group-hover:opacity-100 transition-all duration-200 hover:scale-110"
+                            class="cursor-pointer absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-400 hover:text-red-500 hover:border-red-300 dark:hover:border-red-500 flex items-center justify-center shadow-sm opacity-0 group-hover:opacity-100 transition-all duration-200 hover:scale-110"
                             title="Hapus project"
                         >
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
@@ -104,7 +104,7 @@
                                     </a>
                                     <form action="{{ route('user.project.unpublish', $project->id) }}" method="POST" class="mt-2">
                                         @csrf
-                                        <button type="submit" class="w-full text-xs text-red-500 hover:text-red-600 font-semibold py-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">Unpublish</button>
+                                        <button type="submit" class="cursor-pointer w-full text-xs text-red-500 hover:text-red-600 font-semibold py-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">Unpublish</button>
                                     </form>
                                 </div>
                             @else
@@ -118,7 +118,7 @@
                                         @error('subdomain')
                                             <p class="text-xs text-red-500 font-medium">{{ $message }}</p>
                                         @enderror
-                                        <button type="submit" class="w-full text-xs font-bold py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors flex items-center justify-center gap-1.5">
+                                        <button type="submit" class="cursor-pointer w-full text-xs font-bold py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors flex items-center justify-center gap-1.5">
                                             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                                             Publish
                                         </button>
@@ -140,22 +140,29 @@
         <div id="katalog" class="w-full py-20 overflow-hidden">
             <div class="max-w-7xl mx-auto px-6">
                 
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10 gap-4">
                     <div>
                         <h2 class="text-2xl font-semibold text-slate-900 dark:text-white tracking-tight mb-2">Eksplorasi</h2>
                         <p class="text-sm text-slate-600 dark:text-slate-400">Mulai karya barumu dari template pilihan.</p>
                     </div>
                     
-                    <a href="{{ route('user.templates') }}" class="px-5 py-2.5 bg-white dark:bg-slate-800 text-slate-800 dark:text-white text-sm font-semibold rounded-full border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-all shadow-sm flex items-center gap-2 group">
-                        Lihat Semua
-                        <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </a>
-                </div>
-
-                <div class="flex justify-end mb-6">
-                    <button id="loadMoreBtn" class="text-sm font-medium text-slate-900 dark:text-white underline underline-offset-4 decoration-slate-300 dark:decoration-slate-700 hover:decoration-slate-900 dark:hover:decoration-white transition-all focus:outline-none">
-                        Lihat Lebih Banyak
-                    </button>
+                    <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+                        @if(count($templates) > 3)
+                        <div class="flex items-center gap-2">
+                            <button id="slideLeftBtn" class="cursor-pointer p-2.5 rounded-full border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-sm focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed" title="Sebelumnya">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                            </button>
+                            <button id="slideRightBtn" class="cursor-pointer p-2.5 rounded-full border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-sm focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed" title="Selanjutnya">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                            </button>
+                        </div>
+                        @endif
+                        
+                        <a href="{{ route('user.templates') }}" class="px-5 py-2.5 bg-white dark:bg-slate-800 text-slate-800 dark:text-white text-sm font-semibold rounded-full border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-all shadow-sm flex items-center gap-2 group shrink-0">
+                            Lihat Semua
+                            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
                 </div>
 
                 <div id="template-slider" class="flex gap-6 overflow-x-auto snap-x snap-mandatory hide-scroll scroll-smooth pb-8 -mx-6 px-6 md:mx-0 md:px-0">
@@ -165,7 +172,7 @@
                             $categoryName = $template->category->name ?? 'Kategori';
                         @endphp
                         
-                        <div class="template-item shrink-0 w-[85vw] sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] snap-center sm:snap-start group relative bg-[#FAFAFA] dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-700 overflow-hidden hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 flex flex-col" style="{{ $index >= 4 ? 'display: none;' : '' }}" data-category="{{ strtolower($categoryName) }}">
+                        <div class="template-item shrink-0 w-[85vw] sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] snap-center sm:snap-start group relative bg-[#FAFAFA] dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-700 overflow-hidden hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 flex flex-col" data-category="{{ strtolower($categoryName) }}">
                             
                             <div class="aspect-[4/3] w-full bg-slate-200 dark:bg-slate-800 relative overflow-hidden shrink-0 cursor-pointer" onclick="openImageModal('{{ $thumbnailUrl }}', '{{ addslashes($template->name) }}')">
                                 @if($thumbnailUrl)
@@ -197,7 +204,7 @@
                                     </a>
                                     <form action="{{ route('user.project.create', $template->id) }}" method="POST" class="flex-1 flex">
                                         @csrf
-                                        <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 shadow-sm shadow-blue-600/20">
+                                        <button type="submit" class="cursor-pointer w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 shadow-sm shadow-blue-600/20">
                                             Edit
                                         </button>
                                     </form>
@@ -216,7 +223,7 @@
         <div id="image-modal" class="fixed inset-0 z-[60] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
             <div class="absolute inset-0 bg-slate-900/90 backdrop-blur-sm transition-opacity" onclick="closeImageModal()"></div>
             <div class="relative z-10 max-w-5xl w-[calc(100%-2rem)] flex flex-col items-center transform scale-95 transition-transform duration-300" id="image-modal-content">
-                <button onclick="closeImageModal()" aria-label="Tutup modal" class="absolute -top-12 right-0 text-slate-400 hover:text-white transition-colors p-2 focus:outline-none">
+                <button onclick="closeImageModal()" aria-label="Tutup modal" class="cursor-pointer absolute -top-12 right-0 text-slate-400 hover:text-white transition-colors p-2 focus:outline-none">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
                 <img id="modal-image-src" src="" alt="Full screen preview" loading="lazy" decoding="async" class="w-full max-h-[85vh] object-contain rounded-2xl shadow-2xl">
@@ -264,89 +271,57 @@
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-            const container = document.getElementById('template-container');
-            const items = Array.from(document.querySelectorAll('.template-item'));
-            const btn = document.getElementById('loadMoreBtn');
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            const categoryItems = document.querySelectorAll('.category-item');
-            const toggleCategoriesBtn = document.getElementById('toggleCategoriesBtn');
+            const slider = document.getElementById('template-slider');
+            const leftBtn = document.getElementById('slideLeftBtn');
+            const rightBtn = document.getElementById('slideRightBtn');
             
-            let visibleCount = 4;
-            let currentFilter = 'semua';
-            let isShowingAllCategories = false;
-
-            if (toggleCategoriesBtn) {
-                toggleCategoriesBtn.addEventListener('click', () => {
-                    isShowingAllCategories = !isShowingAllCategories;
-                    categoryItems.forEach((item, index) => {
-                        if (index >= 3) {
-                            item.style.display = isShowingAllCategories ? 'inline-block' : 'none';
-                        }
-                    });
-                    toggleCategoriesBtn.innerHTML = isShowingAllCategories ? '&laquo;' : '&raquo;';
-                });
-            }
-
-            function updateGrid() {
-                let filteredItems = items;
-                
-                if (currentFilter !== 'semua') {
-                    filteredItems = items.filter(item => item.getAttribute('data-category') === currentFilter);
-                }
-                
-                items.forEach(item => item.style.display = 'none');
-                
-                filteredItems.forEach((item, index) => {
-                    if (index < visibleCount) {
-                        item.style.display = 'flex';
+            if (slider && leftBtn && rightBtn) {
+                const getScrollStep = () => {
+                    const firstItem = slider.querySelector('.template-item');
+                    if (firstItem) {
+                        return firstItem.offsetWidth + 24; // Item width + gap-6 (24px)
                     }
+                    return 300;
+                };
+
+                leftBtn.addEventListener('click', () => {
+                    slider.scrollBy({ left: -getScrollStep(), behavior: 'smooth' });
                 });
 
-                if (btn) {
-                    if (filteredItems.length <= 4) {
-                        btn.style.display = 'none';
+                rightBtn.addEventListener('click', () => {
+                    slider.scrollBy({ left: getScrollStep(), behavior: 'smooth' });
+                });
+
+                const updateButtonState = () => {
+                    const scrollLeft = slider.scrollLeft;
+                    const maxScrollLeft = slider.scrollWidth - slider.clientWidth;
+                    
+                    leftBtn.disabled = scrollLeft <= 5;
+                    rightBtn.disabled = scrollLeft >= maxScrollLeft - 5;
+                    
+                    if (leftBtn.disabled) {
+                        leftBtn.classList.add('opacity-40', 'cursor-not-allowed');
+                        leftBtn.classList.remove('hover:bg-slate-50', 'dark:hover:bg-slate-700', 'cursor-pointer');
                     } else {
-                        btn.style.display = 'inline-block';
-                        if (visibleCount >= filteredItems.length) {
-                            btn.innerText = "Menampilkan Lebih Sedikit";
-                        } else {
-                            btn.innerText = "Lihat Lebih Banyak";
-                        }
+                        leftBtn.classList.remove('opacity-40', 'cursor-not-allowed');
+                        leftBtn.classList.add('hover:bg-slate-50', 'dark:hover:bg-slate-700', 'cursor-pointer');
                     }
-                }
-            }
 
-            filterBtns.forEach(btnFilter => {
-                btnFilter.addEventListener('click', () => {
-                    filterBtns.forEach(b => {
-                        b.classList.remove('bg-white', 'dark:bg-slate-700', 'text-slate-800', 'dark:text-white', 'shadow-sm');
-                        b.classList.add('text-slate-500', 'dark:text-slate-400');
-                    });
-                    
-                    btnFilter.classList.remove('text-slate-500', 'dark:text-slate-400');
-                    btnFilter.classList.add('bg-white', 'dark:bg-slate-700', 'text-slate-800', 'dark:text-white', 'shadow-sm');
-                    
-                    currentFilter = btnFilter.getAttribute('data-filter');
-                    visibleCount = 4; 
-                    
-                    updateGrid();
-                    container.scrollTo({ left: 0, behavior: 'smooth' });
-                });
-            });
-
-            if (btn) {
-                btn.addEventListener('click', function() {
-                    if (btn.innerText.trim() === "Menampilkan Lebih Sedikit") {
-                        visibleCount = 4;
-                        container.scrollTo({ left: 0, behavior: 'smooth' });
+                    if (rightBtn.disabled) {
+                        rightBtn.classList.add('opacity-40', 'cursor-not-allowed');
+                        rightBtn.classList.remove('hover:bg-slate-50', 'dark:hover:bg-slate-700', 'cursor-pointer');
                     } else {
-                        visibleCount += 8;
+                        rightBtn.classList.remove('opacity-40', 'cursor-not-allowed');
+                        rightBtn.classList.add('hover:bg-slate-50', 'dark:hover:bg-slate-700', 'cursor-pointer');
                     }
-                    updateGrid();
-                });
+                };
+
+                slider.addEventListener('scroll', updateButtonState);
+                window.addEventListener('resize', updateButtonState);
+                
+                // Initial check with a slight delay to ensure browser layout is ready
+                setTimeout(updateButtonState, 150);
             }
-            
-            updateGrid();
         });
     </script>
 

@@ -31,17 +31,17 @@
                         <input type="text" id="searchInput" placeholder="Cari template (mis: Toko, Portofolio...)" aria-label="Cari template" class="w-full pl-14 pr-4 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all font-medium text-lg shadow-sm hover:shadow-md">
                     </div>
                     <div class="relative w-full md:w-72">
-                        <button id="categoryDropdownBtn" class="w-full flex items-center justify-between px-5 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white font-medium text-lg shadow-sm hover:shadow-md focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all">
+                        <button id="categoryDropdownBtn" class="cursor-pointer w-full flex items-center justify-between px-5 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white font-medium text-lg shadow-sm hover:shadow-md focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all">
                             <span id="categoryDropdownText">Semua Template</span>
                             <svg id="categoryDropdownIcon" class="w-5 h-5 text-slate-400 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
                         <div id="categoryDropdownMenu" class="absolute z-20 w-full mt-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl opacity-0 invisible transform scale-95 transition-all duration-200 origin-top">
                             <div class="py-2 max-h-64 overflow-y-auto hide-scroll" id="category-filter-container">
-                                <button data-filter="semua" data-name="Semua Template" class="filter-btn w-full text-left px-5 py-3 text-blue-600 bg-blue-50 dark:bg-blue-900/40 dark:text-blue-400 font-bold transition-colors">
+                                <button data-filter="semua" data-name="Semua Template" class="filter-btn cursor-pointer w-full text-left px-5 py-3 text-blue-600 bg-blue-50 dark:bg-blue-900/40 dark:text-blue-400 font-bold transition-colors">
                                     Semua Template
                                 </button>
                                 @foreach($categories as $category)
-                                    <button data-filter="{{ strtolower($category->name) }}" data-name="{{ $category->name }}" class="filter-btn w-full text-left px-5 py-3 text-slate-600 dark:text-slate-300 font-medium hover:bg-slate-50 dark:hover:bg-slate-700/50 hover:text-slate-900 dark:hover:text-white transition-colors">
+                                    <button data-filter="{{ strtolower($category->name) }}" data-name="{{ $category->name }}" class="filter-btn cursor-pointer w-full text-left px-5 py-3 text-slate-600 dark:text-slate-300 font-medium hover:bg-slate-50 dark:hover:bg-slate-700/50 hover:text-slate-900 dark:hover:text-white transition-colors">
                                         {{ $category->name }}
                                     </button>
                                 @endforeach
@@ -64,7 +64,7 @@
                                 <img src="{{ $thumbnailUrl }}" alt="{{ $template->name }}" loading="lazy" width="800" height="600" decoding="async" class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500">
                                 
                                 <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px] z-10 gap-3">
-                                    <button onclick="openImageModal('{{ $thumbnailUrl }}', '{{ addslashes($template->name) }}')" class="bg-white text-slate-900 px-5 py-2.5 rounded-full text-sm font-bold shadow-xl flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-all hover:bg-slate-100">
+                                    <button onclick="openImageModal('{{ $thumbnailUrl }}', '{{ addslashes($template->name) }}')" class="cursor-pointer bg-white text-slate-900 px-5 py-2.5 rounded-full text-sm font-bold shadow-xl flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-all hover:bg-slate-100">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
                                         Perbesar gambar
                                     </button>
@@ -90,7 +90,7 @@
                                 </a>
                                 <form action="{{ route('user.project.create', $template->id) }}" method="POST" class="flex-1">
                                     @csrf
-                                    <button type="submit" class="use-template-btn w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 shadow-sm shadow-blue-600/20">
+                                    <button type="submit" class="use-template-btn cursor-pointer w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 shadow-sm shadow-blue-600/20">
                                         Edit
                                     </button>
                                 </form>
@@ -103,6 +103,12 @@
                         <p class="text-slate-600 dark:text-slate-400 font-medium text-lg">Belum ada template yang tersedia.</p>
                     </div>
                 @endforelse
+            </div>
+            
+            <div id="loadMoreContainer" class="hidden text-center mt-12 mb-4">
+                <button id="loadMoreBtn" class="cursor-pointer bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold py-3.5 px-8 rounded-full border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors shadow-sm inline-flex items-center gap-2 group">
+                    Lihat Lebih Banyak
+                </button>
             </div>
             <div id="no-results-msg" class="hidden text-center py-20 bg-slate-50 dark:bg-slate-800/50 rounded-3xl border border-slate-100 dark:border-slate-700 mt-6">
                 <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white dark:bg-slate-800 shadow-sm text-slate-400 mb-6 border border-slate-100 dark:border-slate-700">
@@ -129,7 +135,7 @@
                 <a href="{{ route('login') }}" class="w-full px-4 py-3.5 rounded-2xl font-bold text-white bg-blue-600 hover:bg-blue-700 text-center transition-colors shadow-lg shadow-blue-600/30">
                     Login Sekarang
                 </a>
-                <button onclick="closeAuthAlert()" class="w-full px-4 py-3.5 rounded-2xl font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
+                <button onclick="closeAuthAlert()" class="cursor-pointer w-full px-4 py-3.5 rounded-2xl font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
                     Nanti Saja
                 </button>
             </div>
@@ -138,7 +144,7 @@
     <div id="image-modal" class="fixed inset-0 z-[60] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
         <div class="absolute inset-0 bg-slate-900/95 backdrop-blur-md transition-opacity" onclick="closeImageModal()"></div>
         <div class="relative z-10 max-w-6xl w-[calc(100%-2rem)] flex flex-col items-center transform scale-95 transition-transform duration-300" id="image-modal-content">
-            <button onclick="closeImageModal()" aria-label="Tutup modal" class="absolute -top-12 md:-top-14 right-0 text-white/50 hover:text-white transition-colors p-2 focus:outline-none bg-white/10 rounded-full hover:bg-white/20">
+            <button onclick="closeImageModal()" aria-label="Tutup modal" class="cursor-pointer absolute -top-12 md:-top-14 right-0 text-white/50 hover:text-white transition-colors p-2 focus:outline-none bg-white/10 rounded-full hover:bg-white/20">
                 <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
             <img id="modal-image-src" src="" alt="Full screen preview" loading="lazy" decoding="async" class="w-full max-h-[85vh] object-contain rounded-xl shadow-2xl">
@@ -210,6 +216,7 @@
         let currentFilter = 'semua';
         let searchQuery = '';
         let noResultsTimeout;
+        let visibleLimit = 9;
 
         useTemplateBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -221,6 +228,7 @@
         });
 
         function filterTemplates() {
+            let matchCount = 0;
             let visibleCount = 0;
             
             cards.forEach(card => {
@@ -231,11 +239,18 @@
                 const matchesSearch = name.includes(searchQuery);
                 
                 if (matchesCategory && matchesSearch) {
-                    card.style.display = 'flex';
-                    void card.offsetWidth;
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                    visibleCount++;
+                    matchCount++;
+                    if (visibleCount < visibleLimit) {
+                        card.style.display = 'flex';
+                        void card.offsetWidth;
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                        visibleCount++;
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(10px)';
+                        card.style.display = 'none';
+                    }
                 } else {
                     card.style.opacity = '0';
                     card.style.transform = 'translateY(10px)';
@@ -245,12 +260,29 @@
                 }
             });
 
+            const loadMoreBtn = document.getElementById('loadMoreContainer');
+            if (loadMoreBtn) {
+                if (matchCount > visibleLimit) {
+                    loadMoreBtn.classList.remove('hidden');
+                } else {
+                    loadMoreBtn.classList.add('hidden');
+                }
+            }
+
             clearTimeout(noResultsTimeout);
-            if (visibleCount === 0 && cards.length > 0) {
+            if (matchCount === 0 && cards.length > 0) {
                 noResultsTimeout = setTimeout(() => noResultsMsg.classList.remove('hidden'), 300);
             } else {
                 noResultsMsg.classList.add('hidden');
             }
+        }
+
+        const loadMoreBtnReal = document.getElementById('loadMoreBtn');
+        if (loadMoreBtnReal) {
+            loadMoreBtnReal.addEventListener('click', () => {
+                visibleLimit += 9;
+                filterTemplates();
+            });
         }
 
         const dropdownBtn = document.getElementById('categoryDropdownBtn');
@@ -295,13 +327,18 @@
                 btn.classList.remove('font-medium', 'text-slate-600', 'dark:text-slate-300');
                 btn.classList.add('font-bold', 'text-blue-600', 'bg-blue-50', 'dark:bg-blue-900/40', 'dark:text-blue-400');
                 currentFilter = btn.getAttribute('data-filter');
+                visibleLimit = 9;
                 filterTemplates();
             });
         });
         searchInput.addEventListener('input', (e) => {
             searchQuery = e.target.value.toLowerCase();
+            visibleLimit = 9;
             filterTemplates();
         });
+        
+        // Initial setup
+        filterTemplates();
     });
 </script>
 @endsection

@@ -1,6 +1,43 @@
 @extends('user.layouts.app')
 @section('title', 'Website Builder')
 @section('content')
+<style>
+    @keyframes gradient-flow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    .animate-gradient-flow {
+        background-size: 200% auto;
+        animation: gradient-flow 4s linear infinite;
+    }
+    @keyframes custom-float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-15px); }
+    }
+    .animate-custom-float {
+        animation: custom-float 4s ease-in-out infinite;
+    }
+    .btn-shimmer {
+        position: relative;
+        overflow: hidden;
+    }
+    .btn-shimmer::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+        transform: rotate(30deg);
+        animation: shimmer 3s infinite linear;
+    }
+    @keyframes shimmer {
+        0% { transform: translateX(-100%) rotate(30deg); }
+        100% { transform: translateX(100%) rotate(30deg); }
+    }
+</style>
 <main class="grow relative z-10 overflow-hidden">
     <!-- HERO SECTION -->
     <section class="relative pt-24 pb-20 md:pt-32 md:pb-32 lg:min-h-[85vh] flex items-center">
@@ -16,13 +53,13 @@
                 <div class="lg:w-1/2 text-center lg:text-left">
                     <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6 leading-[1.15]">
                         Buat Website Impian <br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600">Tanpa Menulis Kode.</span>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 animate-gradient-flow">Tanpa Menulis Kode.</span>
                     </h1>
                     <p class="text-slate-600 dark:text-slate-400 text-lg md:text-xl mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
                         Platform pembuatan website paling intuitif. Pilih template, sesuaikan desain dengan <i>drag-and-drop</i>, dan publikasikan usahamu secara profesional dalam hitungan menit.
                     </p>
                     <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                        <a href="{{ route('user.templates') }}" class="w-full sm:w-auto bg-blue-600 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-blue-700 shadow-lg shadow-blue-600/30 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                        <a href="{{ route('user.templates') }}" class="btn-shimmer w-full sm:w-auto bg-blue-600 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-blue-700 shadow-lg shadow-blue-600/30 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2">
                             Mulai Desain Sekarang
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                         </a>
@@ -59,7 +96,7 @@
                                 >
                             </div>
                         </div>
-                        <span>Dipercaya oleh 1,000+ pengguna</span>
+                        <span>Dipercaya oleh <span id="userCount" class="inline-block min-w-[2.5rem] text-center font-bold text-blue-600 dark:text-blue-400">1</span>+ pengguna</span>
                     </div>
                 </div>
                 
@@ -70,7 +107,7 @@
                     </div>
                     
                     <!-- Floating Cards to simulate UI -->
-                    <div class="flex absolute bottom-4 left-4 md:-left-12 md:bottom-12 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md p-2 md:p-4 rounded-lg md:rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 items-center gap-2 md:gap-4 animate-bounce" style="animation-duration: 3s;">
+                    <div class="flex absolute bottom-4 left-4 md:-left-12 md:bottom-12 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md p-2 md:p-4 rounded-lg md:rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 items-center gap-2 md:gap-4 animate-custom-float">
                         <div class="w-6 h-6 md:w-10 md:h-10 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400 shrink-0">
                             <svg class="w-3.5 h-3.5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                         </div>
@@ -224,7 +261,7 @@
                                 </a>
                                 <form action="{{ route('user.project.create', $template->id) }}" method="POST" class="flex-1">
                                     @csrf
-                                    <button type="submit" class="use-template-btn w-full bg-blue-600 text-white py-3.5 rounded-xl font-bold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 shadow-sm shadow-blue-600/20">
+                                    <button type="submit" class="use-template-btn cursor-pointer w-full bg-blue-600 text-white py-3.5 rounded-xl font-bold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 shadow-sm shadow-blue-600/20">
                                         Edit
                                     </button>
                                 </form>
@@ -347,7 +384,7 @@
                             Tier Tinggi Aktif
                         </div>
                     @else
-                        <button onclick="openUpgradeModal('Pro')" class="block w-full py-4 px-6 text-center rounded-xl font-bold bg-white text-blue-600 hover:bg-slate-50 transition-colors shadow-lg shadow-black/10">
+                        <button onclick="openUpgradeModal('Pro')" class="cursor-pointer block w-full py-4 px-6 text-center rounded-xl font-bold bg-white text-blue-600 hover:bg-slate-50 transition-colors shadow-lg shadow-black/10">
                             Pilih Pro
                         </button>
                     @endif
@@ -399,7 +436,7 @@
                             Paket Aktif
                         </div>
                     @else
-                        <button onclick="openUpgradeModal('Elite')" class="block w-full py-4 px-6 text-center rounded-xl font-bold border-2 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-purple-600 hover:text-purple-600 dark:hover:border-purple-500 dark:hover:text-purple-500 transition-colors">
+                        <button onclick="openUpgradeModal('Elite')" class="cursor-pointer block w-full py-4 px-6 text-center rounded-xl font-bold border-2 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-purple-600 hover:text-purple-600 dark:hover:border-purple-500 dark:hover:text-purple-500 transition-colors">
                             Pilih Elite
                         </button>
                     @endif
@@ -453,7 +490,7 @@
                 <a href="{{ route('login') }}" class="w-full px-4 py-3.5 rounded-2xl font-bold text-white bg-blue-600 hover:bg-blue-700 text-center transition-colors shadow-lg shadow-blue-600/30">
                     Login Sekarang
                 </a>
-                <button onclick="closeAuthAlert()" class="w-full px-4 py-3.5 rounded-2xl font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
+                <button onclick="closeAuthAlert()" class="cursor-pointer w-full px-4 py-3.5 rounded-2xl font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
                     Nanti Saja
                 </button>
             </div>
@@ -464,7 +501,7 @@
     <div id="image-modal" class="fixed inset-0 z-[60] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
         <div class="absolute inset-0 bg-slate-900/95 backdrop-blur-md transition-opacity" onclick="closeImageModal()"></div>
         <div class="relative z-10 max-w-6xl w-[calc(100%-2rem)] flex flex-col items-center transform scale-95 transition-transform duration-300" id="image-modal-content">
-            <button onclick="closeImageModal()" aria-label="Tutup modal" class="absolute -top-12 md:-top-14 right-0 text-white/50 hover:text-white transition-colors p-2 focus:outline-none bg-white/10 rounded-full hover:bg-white/20">
+            <button onclick="closeImageModal()" aria-label="Tutup modal" class="cursor-pointer absolute -top-12 md:-top-14 right-0 text-white/50 hover:text-white transition-colors p-2 focus:outline-none bg-white/10 rounded-full hover:bg-white/20">
                 <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
             <img id="modal-image-src" src="" alt="Full screen preview" loading="lazy" decoding="async" class="w-full max-h-[85vh] object-contain rounded-xl shadow-2xl">
@@ -504,7 +541,7 @@
                     <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
                     Hubungi Admin via WhatsApp
                 </a>
-                <button onclick="closeUpgradeModal()" class="w-full px-4 py-3.5 rounded-2xl font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
+                <button onclick="closeUpgradeModal()" class="cursor-pointer w-full px-4 py-3.5 rounded-2xl font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
                     Nanti Saja
                 </button>
             </div>
@@ -513,8 +550,76 @@
 
 </main>
 
+<script src="{{ asset('js/scrollreveal.min.js') }}"></script>
 <script>
     const isLoggedIn = {{ auth()->check() ? 'true' : 'false' }};
+
+    // SCROLL REVEAL & COUNTING ANIMATION
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. Counting Animation Function
+        function animateValue(id, start, end, duration) {
+            const obj = document.getElementById(id);
+            if (!obj) return;
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                // Ease out quintic for a very smooth slow-down at the end
+                const easeOut = 1 - Math.pow(1 - progress, 5);
+                const current = Math.floor(easeOut * (end - start) + start);
+                obj.innerHTML = current.toLocaleString('en-US');
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    obj.innerHTML = end.toLocaleString('en-US');
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // 2. Initialize ScrollReveal
+        if (typeof ScrollReveal !== 'undefined') {
+            const sr = ScrollReveal({
+                distance: '40px',
+                duration: 1000,
+                easing: 'cubic-bezier(0.25, 0.1, 0.25, 1)',
+                opacity: 0,
+                scale: 0.9,
+            });
+
+            // Hero Section
+            sr.reveal('.lg\\:w-1\\/2.text-center.lg\\:text-left > h1', { origin: 'bottom', delay: 100 });
+            sr.reveal('.lg\\:w-1\\/2.text-center.lg\\:text-left > p', { origin: 'bottom', delay: 200 });
+            sr.reveal('.lg\\:w-1\\/2.text-center.lg\\:text-left > div', { origin: 'bottom', delay: 300 });
+            sr.reveal('.lg\\:w-1\\/2.relative', { origin: 'right', delay: 200 });
+
+            // Animate Counter when it appears
+            sr.reveal('#userCount', {
+                delay: 400,
+                beforeReveal: function (el) {
+                    animateValue("userCount", 1, 1000, 5000); // 5000ms = 5 detik
+                }
+            });
+
+            // Sponsors
+            sr.reveal('section.py-10 .flex-wrap span', { origin: 'bottom', interval: 100, delay: 100 });
+
+            // Features Section
+            sr.reveal('.grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3 > div', { origin: 'bottom', interval: 150, delay: 100 });
+
+            // How it Works
+            sr.reveal('#how-it-works .flex-1', { origin: 'bottom', interval: 200, delay: 100 });
+
+            // Templates Header
+            sr.reveal('#templates h2, #templates p', { origin: 'left', interval: 100 });
+
+            // Pricing Section
+            sr.reveal('#pricing .grid > div', { origin: 'bottom', interval: 200, delay: 100 });
+
+            // Final CTA
+            sr.reveal('.bg-gradient-to-br.from-blue-600', { origin: 'bottom', distance: '80px', duration: 1200, delay: 100 });
+        }
+    });
 
     // Upgrade Tier Modal
     const upgradeModal    = document.getElementById('upgrade-modal');
