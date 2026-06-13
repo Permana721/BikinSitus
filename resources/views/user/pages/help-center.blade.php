@@ -1,6 +1,9 @@
 @extends('user.layouts.app')
 @section('title', 'Pusat Bantuan')
 @section('content')
+<style>
+    .faq-btn, #btn-more-help, .category-link { cursor: pointer; }
+</style>
 <main class="grow relative z-10 bg-[#FAFAFA] dark:bg-slate-900 pt-32 pb-20">
     <div class="max-w-7xl mx-auto px-6 relative z-10 w-full flex flex-col lg:flex-row gap-8 lg:gap-12">
         
