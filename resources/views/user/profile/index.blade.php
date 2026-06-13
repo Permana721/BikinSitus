@@ -60,7 +60,7 @@
                         </div>
 
                         <div class="flex flex-row md:flex-col gap-2 overflow-x-auto hide-scroll pb-2 md:pb-0">
-                            <button id="btn-tab-profile" class="flex-shrink-0 w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl font-semibold text-sm transition-all bg-blue-600 text-white shadow-lg shadow-blue-600/20 transform hover:-translate-y-0.5">
+                            <button id="btn-tab-profile" class="flex-shrink-0 w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl font-semibold text-sm transition-all bg-blue-600 text-white shadow-lg shadow-blue-600/20 transform hover:-translate-y-0.5 cursor-pointer">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                                 Detail Profil
                             </button>
@@ -112,7 +112,7 @@
                                 </div>
 
                                 <div class="pt-8">
-                                    <button type="submit" class="w-full md:w-auto px-10 py-4 bg-blue-600 text-white font-bold rounded-full hover:bg-blue-700 shadow-xl shadow-blue-600/30 transition-all transform hover:-translate-y-1">
+                                    <button type="submit" class="w-full md:w-auto px-10 py-4 bg-blue-600 text-white font-bold rounded-full hover:bg-blue-700 shadow-xl shadow-blue-600/30 transition-all transform hover:-translate-y-1 cursor-pointer">
                                         Simpan Perubahan Profil
                                     </button>
                                 </div>
