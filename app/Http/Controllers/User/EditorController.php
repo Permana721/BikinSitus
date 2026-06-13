@@ -203,9 +203,63 @@ class EditorController extends Controller
             'image' => 'required|image|max:5120',
         ]);
 
+        $file = $request->file('image');
         $userId = $project->user_id;
         $destDir = "users/{$userId}/projects/{$project->id}/uploads";
-        $path = $request->file('image')->store($destDir, 'public');
+
+        try {
+            $filePath = $file->getRealPath();
+            $image = null;
+
+            // Detect image type
+            $imageInfo = getimagesize($filePath);
+            $mime = $imageInfo['mime'] ?? '';
+
+            if ($mime === 'image/jpeg' || $mime === 'image/jpg') {
+                $image = imagecreatefromjpeg($filePath);
+            } elseif ($mime === 'image/png') {
+                $image = imagecreatefrompng($filePath);
+                if ($image) {
+                    imagealphablending($image, false);
+                    imagesavealpha($image, true);
+                }
+            } elseif ($mime === 'image/gif') {
+                $image = imagecreatefromgif($filePath);
+            } elseif ($mime === 'image/webp') {
+                $image = imagecreatefromwebp($filePath);
+            }
+
+            if (!$image) {
+                // Fallback to generic image loader
+                $imgData = file_get_contents($filePath);
+                $image = imagecreatefromstring($imgData);
+            }
+
+            if ($image) {
+                // Generate webp filename
+                $filename = uniqid('img_', true) . '.webp';
+                
+                // Destination storage path
+                $destPath = storage_path("app/public/{$destDir}");
+                if (!\Illuminate\Support\Facades\File::exists($destPath)) {
+                    \Illuminate\Support\Facades\File::makeDirectory($destPath, 0755, true, true);
+                }
+                
+                $fullPath = $destPath . '/' . $filename;
+
+                // Save to webp with compression quality of 80
+                imagewebp($image, $fullPath, 80);
+                imagedestroy($image);
+
+                $url = asset("storage/{$destDir}/{$filename}");
+                return response()->json(['url' => $url]);
+            }
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::error('WebP conversion failed: ' . $e->getMessage());
+        }
+
+        // Fallback: store original file if conversion fails
+        $path = $file->store($destDir, 'public');
         $url = asset('storage/' . $path);
 
         return response()->json(['url' => $url]);
