@@ -20,7 +20,11 @@ class DashboardController extends Controller
 
     public function dashboard()
     {
-        $templates = Template::with('category')->where('is_active', true)->latest()->get();
+        $templates = Template::with('category')
+                       ->where('is_active', true)
+                       ->inRandomOrder()
+                       ->limit(6)
+                       ->get();
         $projects = \App\Models\Project::with('template')
                       ->where('user_id', Auth::id())
                       ->whereColumn('updated_at', '>', 'created_at')
