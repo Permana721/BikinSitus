@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editor - {{ $project->name }}</title>
+    <title>Editor | {{ $project->name }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" type="image/png" href="{{asset('assets/img/logo/BikinWebsiteLogo.png')}}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -185,11 +186,11 @@
         </div>
         <div class="topbar-center">
             <div id="deviceToggle" class="device-toggle-group">
-                <button id="btnDesktop" class="device-btn active" title="Desktop View">
+                <button id="btnDesktop" class="device-btn active cursor-pointer" title="Desktop View">
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                     <span>Desktop</span>
                 </button>
-                <button id="btnMobile" class="device-btn" title="Mobile View">
+                <button id="btnMobile" class="device-btn cursor-pointer" title="Mobile View">
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                     <span>Mobile</span>
                 </button>
@@ -282,9 +283,9 @@
         </div>
         <!-- Image tools -->
         <div id="imageTools" style="display:none;align-items:center;gap:4px">
-            <button class="img-btn" id="btnReplaceImg">
+            <button class="img-btn" id="btnReplaceImg" title="Ukuran foto maksimal 5MB">
                 <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                Ganti Gambar
+                Ganti Gambar <span style="font-size:9px;opacity:0.6;margin-left:4px;font-weight:normal;background:rgba(255,255,255,0.1);padding:1px 4px;border-radius:4px">MAX: 5MB</span>
             </button>
             <div class="sep"></div>
             <div class="slider-wrap">
@@ -307,9 +308,9 @@
             </button>
             <span class="tb-label">Background</span>
             <div class="sep" id="bgImgSep" style="display:none"></div>
-            <button class="img-btn" id="btnReplaceBgImg" style="display:none">
+            <button class="img-btn" id="btnReplaceBgImg" style="display:none" title="Ukuran foto maksimal 5MB">
                 <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                Ganti Gambar
+                Ganti Gambar <span style="font-size:9px;opacity:0.6;margin-left:4px;font-weight:normal;background:rgba(255,255,255,0.1);padding:1px 4px;border-radius:4px">MAX: 5MB</span>
             </button>
             <div class="sep"></div>
             <div class="slider-wrap">
@@ -328,7 +329,7 @@
 
     <!-- Link Popover -->
     <div id="linkPopover" class="link-popover">
-        <input type="url" id="linkInput" placeholder="https://contoh.com">
+        <input type="text" id="linkInput" placeholder="https://contoh.com">
         <div class="link-actions">
             <button class="btn btn-primary" id="btnApplyLink" style="font-size:12px;padding:6px">Terapkan</button>
             <button class="btn btn-danger" id="btnRemoveLink" style="font-size:12px;padding:6px">Hapus Link</button>
@@ -882,9 +883,17 @@
 
     document.getElementById('btnLink').addEventListener('click', () => {
         if(!selectedEl) return;
-        const sel = iframe.contentWindow.getSelection();
-        const anchor = sel && sel.anchorNode ? sel.anchorNode.parentElement : null;
-        linkInput.value = (anchor && anchor.tagName === 'A') ? anchor.href : '';
+        let anchor = null;
+        if (selectedEl.tagName === 'A') {
+            anchor = selectedEl;
+        } else {
+            const sel = iframe.contentWindow.getSelection();
+            const node = sel && sel.anchorNode ? sel.anchorNode.parentElement : null;
+            if (node) {
+                anchor = node.closest('a');
+            }
+        }
+        linkInput.value = anchor ? anchor.getAttribute('href') || '' : '';
         linkPopover.style.display = 'block';
         const r = toolbar.getBoundingClientRect();
         linkPopover.style.top = (r.bottom + 6) + 'px';
@@ -894,18 +903,78 @@
 
     document.getElementById('btnApplyLink').addEventListener('click', () => {
         if(!iDoc) return;
-        const url = linkInput.value.trim();
+        let url = linkInput.value.trim();
         if(url){
-            iframe.contentWindow.focus();
-            iDoc.execCommand('createLink', false, url);
+            // Auto-prepend https:// if it looks like a domain name (contains a dot, no spaces, and no prefix like http/mailto/tel/#//)
+            if (!/^(https?:\/\/|mailto:|tel:|#|\/)/i.test(url)) {
+                if (url.includes('.') && !url.includes(' ')) {
+                    url = 'https://' + url;
+                }
+            }
+            let anchor = null;
+            if (selectedEl && selectedEl.tagName === 'A') {
+                anchor = selectedEl;
+            } else {
+                const sel = iframe.contentWindow.getSelection();
+                const node = sel && sel.anchorNode ? sel.anchorNode.parentElement : null;
+                if (node) {
+                    anchor = node.closest('a');
+                }
+            }
+
+            if (anchor) {
+                anchor.setAttribute('href', url);
+                showToast('Link diperbarui ✓', 'success');
+            } else {
+                iframe.contentWindow.focus();
+                iDoc.execCommand('createLink', false, url);
+                showToast('Link ditambahkan ✓', 'success');
+            }
+            takeSnapshot();
         }
         linkPopover.style.display = 'none';
     });
 
     document.getElementById('btnRemoveLink').addEventListener('click', () => {
         if(!iDoc) return;
-        iframe.contentWindow.focus();
-        iDoc.execCommand('unlink', false, null);
+        
+        let anchor = null;
+        if (selectedEl && selectedEl.tagName === 'A') {
+            anchor = selectedEl;
+        } else {
+            const sel = iframe.contentWindow.getSelection();
+            const node = sel && sel.anchorNode ? sel.anchorNode.parentElement : null;
+            if (node) {
+                anchor = node.closest('a');
+            }
+        }
+
+        if (anchor) {
+            const classes = anchor.className || '';
+            const isButtonOrNav = classes.includes('btn') || classes.includes('button') || classes.includes('nav') || classes.includes('menu');
+            
+            if (isButtonOrNav) {
+                anchor.removeAttribute('href');
+                showToast('Link dihapus dari tombol ✓', 'success');
+            } else {
+                const parent = anchor.parentNode;
+                if (parent) {
+                    while (anchor.firstChild) {
+                        parent.insertBefore(anchor.firstChild, anchor);
+                    }
+                    parent.removeChild(anchor);
+                    deselectEl();
+                    hideToolbar();
+                    showToast('Link dihapus ✓', 'success');
+                }
+            }
+            takeSnapshot();
+        } else {
+            iframe.contentWindow.focus();
+            iDoc.execCommand('unlink', false, null);
+            takeSnapshot();
+        }
+        
         linkPopover.style.display = 'none';
     });
 
@@ -922,6 +991,15 @@
 
     imageInput.addEventListener('change', async () => {
         if(!selectedEl || !imageInput.files[0]) return;
+        
+        // Frontend validation: max 5MB (5 * 1024 * 1024 bytes)
+        const file = imageInput.files[0];
+        if (file.size > 5 * 1024 * 1024) {
+            showToast('Error: Ukuran foto maksimal 5MB', 'error');
+            imageInput.value = '';
+            return;
+        }
+
         const mode = imageInput.dataset.mode || 'img';
         // Validate: img mode requires IMG tag, bg mode requires element with bg-image
         if(mode === 'img' && selectedEl.tagName !== 'IMG'){ imageInput.value = ''; return; }
@@ -932,7 +1010,7 @@
         const origHeight = selectedEl.offsetHeight || parseFloat(cs.height);
 
         const fd = new FormData();
-        fd.append('image', imageInput.files[0]);
+        fd.append('image', file);
         try {
             showToast('Mengunggah gambar...', 'saving');
             const res = await fetch(UPLOAD_URL, {
@@ -940,8 +1018,8 @@
                 headers: { 'X-CSRF-TOKEN': CSRF },
                 body: fd
             });
-            const data = await res.json();
-            if(data.url){
+            const data = await res.json().catch(() => null);
+            if(res.ok && data && data.url){
                 if(mode === 'bg'){
                     // Replace background-image (inline style takes priority)
                     selectedEl.style.backgroundImage = 'url(' + data.url + ')';
@@ -964,9 +1042,17 @@
                     }
                     showToast('Gambar berhasil diganti ✓', 'success');
                 }
+            } else {
+                if (data && data.errors && data.errors.image) {
+                    showToast('Error: Ukuran foto maksimal 5MB', 'error');
+                } else if (data && data.message) {
+                    showToast('Error: ' + data.message, 'error');
+                } else {
+                    showToast('Error: Ukuran foto maksimal 5MB', 'error');
+                }
             }
         } catch(err){
-            showToast('Gagal mengunggah gambar!', 'error');
+            showToast('Error: Ukuran foto maksimal 5MB', 'error');
             console.error(err);
         }
         imageInput.value = '';
@@ -1036,6 +1122,164 @@
     document.getElementById('btnDesktop').addEventListener('click', () => setDeviceView('desktop'));
     document.getElementById('btnMobile').addEventListener('click', () => setDeviceView('mobile'));
 
+    function cleanupCloneForSaving(clone) {
+        // 1. Remove editor specific helper elements
+        const editStyle = clone.querySelector('#' + EDIT_STYLE_ID);
+        if(editStyle) editStyle.remove();
+        const dropInd = clone.querySelector('#__bisite_drop_indicator__');
+        if(dropInd) dropInd.remove();
+
+        // 2. Remove editor classes & attributes
+        clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+        clone.querySelectorAll('.__bisite_selected, .__bisite_hover').forEach(el => {
+            el.classList.remove('__bisite_selected','__bisite_hover');
+            if(el.className === '') el.removeAttribute('class');
+        });
+
+        // 3. Remove dynamically injected menu/nav toggle elements
+        const offcanvas = clone.querySelector('#fh5co-offcanvas');
+        if(offcanvas) offcanvas.remove();
+        const navToggle = clone.querySelector('.js-fh5co-nav-toggle');
+        if(navToggle) navToggle.remove();
+        
+        // Remove active mobile classes from body
+        if(clone.body) {
+            clone.body.classList.remove('fh5co-overflow', 'offcanvas-visible');
+        }
+
+        // 4. Clean up Flexslider modifications
+        clone.querySelectorAll('.flexslider').forEach(slider => {
+            slider.querySelectorAll('.flex-control-nav, .flex-direction-nav').forEach(el => el.remove());
+            
+            const viewport = slider.querySelector('.flex-viewport');
+            const slidesList = slider.querySelector('.slides');
+            
+            if (viewport && slidesList) {
+                slidesList.querySelectorAll('li.clone').forEach(li => li.remove());
+                viewport.parentNode.insertBefore(slidesList, viewport);
+                viewport.remove();
+            }
+            
+            slider.removeAttribute('style');
+            
+            if (slidesList) {
+                slidesList.removeAttribute('style');
+                slidesList.querySelectorAll('li').forEach(li => {
+                    li.removeAttribute('style');
+                    li.classList.remove('flex-active-slide');
+                    if (li.className === '') li.removeAttribute('class');
+                });
+            }
+        });
+
+        // 5. Clean up Owl Carousel modifications
+        clone.querySelectorAll('.owl-carousel').forEach(carousel => {
+            carousel.querySelectorAll('.owl-nav, .owl-dots, .owl-controls').forEach(el => el.remove());
+            
+            const stage = carousel.querySelector('.owl-stage');
+            if (stage) {
+                const originalItems = [];
+                stage.querySelectorAll('.owl-item').forEach(item => {
+                    if (!item.classList.contains('cloned')) {
+                        while (item.firstChild) {
+                            originalItems.push(item.firstChild);
+                        }
+                    }
+                });
+                
+                carousel.innerHTML = '';
+                originalItems.forEach(item => carousel.appendChild(item));
+            }
+            
+            carousel.classList.remove('owl-loaded', 'owl-drag');
+            carousel.removeAttribute('style');
+        });
+
+        // 6. Clean up Slick Slider modifications
+        clone.querySelectorAll('.slick-initialized').forEach(slider => {
+            slider.querySelectorAll('.slick-arrow, .slick-dots').forEach(el => el.remove());
+            const track = slider.querySelector('.slick-track');
+            if (track) {
+                const originalSlides = [];
+                track.querySelectorAll('.slick-slide').forEach(slide => {
+                    if (!slide.classList.contains('slick-cloned')) {
+                        slide.removeAttribute('style');
+                        slide.removeAttribute('tabindex');
+                        slide.removeAttribute('role');
+                        slide.removeAttribute('id');
+                        slide.removeAttribute('aria-describedby');
+                        slide.classList.remove('slick-slide', 'slick-active', 'slick-current', 'slick-visible');
+                        if (slide.className === '') slide.removeAttribute('class');
+                        originalSlides.push(slide);
+                    }
+                });
+                
+                const list = slider.querySelector('.slick-list');
+                if (list) list.remove();
+                
+                slider.innerHTML = '';
+                originalSlides.forEach(slide => slider.appendChild(slide));
+            }
+            slider.classList.remove('slick-initialized', 'slick-slider', 'slick-dotted');
+            slider.removeAttribute('style');
+        });
+
+        // 7. Clean up Waypoints and Animation states (AOS, WOW, and Custom waypoint animations)
+        clone.querySelectorAll('.animated').forEach(el => {
+            el.classList.remove('animated');
+            el.classList.remove('fadeIn', 'fadeInUp', 'fadeInDown', 'fadeInLeft', 'fadeInRight', 'zoomIn', 'bounceIn');
+            if (el.className === '') el.removeAttribute('class');
+        });
+        
+        clone.querySelectorAll('[class*="animated"]').forEach(el => {
+            el.className = el.className.replace(/\b[a-zA-Z]*animated\b/g, '').trim();
+            if (el.className === '') el.removeAttribute('class');
+        });
+
+        clone.querySelectorAll('[data-aos]').forEach(el => {
+            el.classList.remove('aos-init', 'aos-animate');
+            if (el.className === '') el.removeAttribute('class');
+        });
+
+        clone.querySelectorAll('.wow, [class*="wow"]').forEach(el => {
+            el.style.visibility = '';
+            el.style.animationName = '';
+            el.style.animationDelay = '';
+            el.style.animationDuration = '';
+            el.style.animationIterationCount = '';
+            if (el.getAttribute('style') === '') el.removeAttribute('style');
+        });
+
+        // 8. Reset dynamic scroll styles/effects
+        const homeText = clone.querySelector('#fh5co-home .fh5co-text');
+        if(homeText) {
+            homeText.style.opacity = '';
+            homeText.style.marginTop = '';
+            homeText.style.display = '';
+            if (homeText.getAttribute('style') === '') homeText.removeAttribute('style');
+        }
+        const homeOverlay = clone.querySelector('#fh5co-home .flexslider .fh5co-overlay');
+        if(homeOverlay) {
+            homeOverlay.style.opacity = '';
+            if (homeOverlay.getAttribute('style') === '') homeOverlay.removeAttribute('style');
+        }
+        const mainNav = clone.querySelector('.fh5co-main-nav');
+        if(mainNav) {
+            mainNav.style.position = '';
+            mainNav.style.top = '';
+            mainNav.style.width = '';
+            mainNav.style.zIndex = '';
+            mainNav.classList.remove('fh5co-shadow');
+            if (mainNav.getAttribute('style') === '') mainNav.removeAttribute('style');
+            if (mainNav.className === '') mainNav.removeAttribute('class');
+        }
+        const sticky = clone.querySelector('.js-sticky');
+        if(sticky) {
+            sticky.style.height = '';
+            if (sticky.getAttribute('style') === '') sticky.removeAttribute('style');
+        }
+    }
+
     async function performSave(isAutoSave = false) {
         if(!iDoc) return;
         if(isPreview && !isAutoSave){ btnPreview.click(); await new Promise(r=>setTimeout(r,500)); }
@@ -1043,18 +1287,8 @@
         // Clone document element to serialize without affecting live editor
         const clone = iDoc.documentElement.cloneNode(true);
         
-        // Clean up editing artifacts from clone
-        const editStyle = clone.querySelector('#' + EDIT_STYLE_ID);
-        if(editStyle) editStyle.remove();
-
-        const dropInd = clone.querySelector('#__bisite_drop_indicator__');
-        if(dropInd) dropInd.remove();
-
-        clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
-        clone.querySelectorAll('.__bisite_selected, .__bisite_hover').forEach(el => {
-            el.classList.remove('__bisite_selected','__bisite_hover');
-            if(el.className === '') el.removeAttribute('class');
-        });
+        // Clean up editing artifacts, sliders, and animation states before saving
+        cleanupCloneForSaving(clone);
 
         // Serialize
         const dt = iDoc.doctype;
