@@ -190,6 +190,10 @@
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                     <span>Desktop</span>
                 </button>
+                <button id="btnTablet" class="device-btn cursor-pointer" title="Tablet View">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                    <span>Tablet</span>
+                </button>
                 <button id="btnMobile" class="device-btn cursor-pointer" title="Mobile View">
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                     <span>Mobile</span>
@@ -1088,6 +1092,7 @@
     function setDeviceView(device) {
         currentDevice = device;
         const btnDesktop = document.getElementById('btnDesktop');
+        const btnTablet = document.getElementById('btnTablet');
         const btnMobile = document.getElementById('btnMobile');
         const iframeWrap = iframe.parentElement;
 
@@ -1101,6 +1106,19 @@
             
             btnMobile.classList.add('active');
             btnDesktop.classList.remove('active');
+            btnTablet.classList.remove('active');
+            iframeWrap.style.background = '#0f172a';
+        } else if (device === 'tablet') {
+            iframe.style.width = '768px';
+            iframe.style.height = 'calc(100% - 40px)';
+            iframe.style.marginTop = '20px';
+            iframe.style.marginBottom = '20px';
+            iframe.style.borderRadius = '24px';
+            iframe.style.boxShadow = '0 0 0 12px #1e293b, 0 0 0 14px #334155, 0 20px 50px rgba(0,0,0,0.5)';
+            
+            btnTablet.classList.add('active');
+            btnDesktop.classList.remove('active');
+            btnMobile.classList.remove('active');
             iframeWrap.style.background = '#0f172a';
         } else {
             iframe.style.width = '100%';
@@ -1111,6 +1129,7 @@
             iframe.style.boxShadow = 'none';
             
             btnDesktop.classList.add('active');
+            btnTablet.classList.remove('active');
             btnMobile.classList.remove('active');
             iframeWrap.style.background = isPreview ? '#0f172a' : '#fff';
         }
@@ -1120,6 +1139,7 @@
     }
 
     document.getElementById('btnDesktop').addEventListener('click', () => setDeviceView('desktop'));
+    document.getElementById('btnTablet').addEventListener('click', () => setDeviceView('tablet'));
     document.getElementById('btnMobile').addEventListener('click', () => setDeviceView('mobile'));
 
     function cleanupCloneForSaving(clone) {
