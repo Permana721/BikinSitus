@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Template; 
 use App\Models\Project;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -21,7 +22,7 @@ class DashboardController extends Controller
         $proUsersCount = User::where('role', 'user')->where('tier', 'pro')->count();
         $eliteUsersCount = User::where('role', 'user')->where('tier', 'elite')->count();
         
-        $totalRevenue = ($proUsersCount * 50000) + ($eliteUsersCount * 75000);
+        $totalRevenue = ($proUsersCount * 25000) + ($eliteUsersCount * 50000);
 
         // Menghitung jumlah website yang online
         $totalOnlineWebsites = Project::where('is_published', true)->whereNotNull('subdomain')->count();
@@ -142,5 +143,34 @@ class DashboardController extends Controller
         $websites = $query->latest('updated_at')->paginate(10)->withQueryString();
 
         return view('admin.hosted-websites.index', compact('websites'));
+    }
+
+    public function transactions(Request $request)
+    {
+        $query = Transaction::with('user')->latest();
+
+        if ($request->filled('search')) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                  ->orWhere('email', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        if ($request->filled('tier')) {
+            $query->where('new_tier', $request->tier);
+        }
+
+        if ($request->filled('type')) {
+            $query->where('type', $request->type);
+        }
+
+        $totalRevenue     = Transaction::where('status', 'success')->sum('amount');
+        $totalUpgrades    = Transaction::where('type', 'upgrade')->count();
+        $totalDowngrades  = Transaction::where('type', 'downgrade')->count();
+        $transactions     = $query->paginate(10)->withQueryString();
+
+        return view('admin.transactions.index', compact(
+            'transactions', 'totalRevenue', 'totalUpgrades', 'totalDowngrades'
+        ));
     }
 }
