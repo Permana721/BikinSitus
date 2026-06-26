@@ -10,16 +10,25 @@
         function setDeviceView(device) {
             const iframe = document.getElementById('preview-iframe');
             const desktopBtn = document.getElementById('desktop-btn');
+            const tabletBtn = document.getElementById('tablet-btn');
             const mobileBtn = document.getElementById('mobile-btn');
+            
+            const activeClass = 'px-4 py-2 rounded-full bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-sm transition-all text-sm font-bold flex items-center gap-2 cursor-pointer';
+            const inactiveClass = 'px-4 py-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-all text-sm font-medium flex items-center gap-2 cursor-pointer';
+            
+            desktopBtn.className = inactiveClass;
+            tabletBtn.className = inactiveClass;
+            mobileBtn.className = inactiveClass;
             
             if (device === 'mobile') {
                 iframe.style.width = '375px';
-                mobileBtn.className = 'px-4 py-2 rounded-full bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-sm transition-all text-sm font-bold flex items-center gap-2 cursor-pointer';
-                desktopBtn.className = 'px-4 py-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-all text-sm font-medium flex items-center gap-2 cursor-pointer';
+                mobileBtn.className = activeClass;
+            } else if (device === 'tablet') {
+                iframe.style.width = '768px';
+                tabletBtn.className = activeClass;
             } else {
                 iframe.style.width = '100%';
-                desktopBtn.className = 'px-4 py-2 rounded-full bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-sm transition-all text-sm font-bold flex items-center gap-2 cursor-pointer';
-                mobileBtn.className = 'px-4 py-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-all text-sm font-medium flex items-center gap-2 cursor-pointer';
+                desktopBtn.className = activeClass;
             }
         }
     </script>
@@ -43,6 +52,10 @@
                 <button id="desktop-btn" onclick="setDeviceView('desktop')" class="px-4 py-2 rounded-full bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-sm transition-all text-sm font-bold flex items-center gap-2 cursor-pointer" title="Desktop View">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                     <span class="hidden md:inline">Desktop</span>
+                </button>
+                <button id="tablet-btn" onclick="setDeviceView('tablet')" class="px-4 py-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-all text-sm font-medium flex items-center gap-2 cursor-pointer" title="Tablet View">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                    <span class="hidden md:inline">Tablet</span>
                 </button>
                 <button id="mobile-btn" onclick="setDeviceView('mobile')" class="px-4 py-2 rounded-full text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-all text-sm font-medium flex items-center gap-2 cursor-pointer" title="Mobile View">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
