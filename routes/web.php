@@ -80,6 +80,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::delete('/user/delete/{id}', [Admin\DashboardController::class, 'deleteUser'])->name('user.delete');
 
     Route::get('/hosted-websites', [Admin\DashboardController::class, 'hostedWebsites'])->name('hosted-websites');
+    Route::get('/transactions', [Admin\DashboardController::class, 'transactions'])->name('transactions');
 
     Route::resource('templates', Admin\TemplateController::class)->except(['show']);
     Route::patch('templates/{template}/toggle', [Admin\TemplateController::class, 'toggle'])->name('templates.toggle');
@@ -96,7 +97,7 @@ Route::prefix('user')->name('user.')->middleware(['auth'])->group(function () {
     Route::get('/profile', [User\DashboardController::class, 'profile'])->name('profile');
     Route::post('/profile/update', [User\DashboardController::class, 'updateProfile'])->name('profile.update');
 
-    Route::get('/editor/{project}', [User\EditorController::class, 'show'])->name('editor');
+    Route::get('/editor/{project}', [User\EditorController::class, 'show'])->name('editor')->middleware('signed');
     Route::get('/editor/{project}/load', [User\EditorController::class, 'load'])->name('editor.load');
     Route::post('/editor/{project}/save', [User\EditorController::class, 'save'])->name('editor.save');
     Route::post('/editor/{project}/upload-image', [User\EditorController::class, 'uploadImage'])->name('editor.upload-image');
