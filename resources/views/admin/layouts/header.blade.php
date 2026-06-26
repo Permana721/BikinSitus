@@ -31,6 +31,11 @@
                 Hosting
             </a>
 
+            <a href="{{ route('admin.transactions') }}" 
+            class="text-sm transition-colors {{ request()->routeIs('admin.transactions*') ? 'font-bold text-blue-600 dark:text-blue-400' : 'font-medium text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400' }}">
+                Transaksi
+            </a>
+
             <a href="{{ route('user.dashboard') }}" 
             class="text-sm transition-colors {{ request()->routeIs('user.dashboard*') ? 'font-bold text-blue-600 dark:text-blue-400' : 'font-medium text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400' }}">
                 Dashboard User
@@ -79,6 +84,10 @@
             <a href="{{ route('admin.hosted-websites') }}" 
             class="text-sm transition-colors {{ request()->routeIs('admin.hosted-websites*') ? 'font-bold text-blue-600 dark:text-blue-400' : 'font-medium text-slate-600 dark:text-slate-400 hover:text-blue-600' }}">
                 Hosting
+            </a>
+            <a href="{{ route('admin.transactions') }}" 
+            class="text-sm transition-colors {{ request()->routeIs('admin.transactions*') ? 'font-bold text-blue-600 dark:text-blue-400' : 'font-medium text-slate-600 dark:text-slate-400 hover:text-blue-600' }}">
+                Transaksi
             </a>
             <a href="{{ route('user.dashboard') }}" 
             class="text-sm transition-colors {{ request()->routeIs('user.dashboard*') ? 'font-bold text-blue-600 dark:text-blue-400' : 'font-medium text-slate-600 dark:text-slate-400 hover:text-blue-600' }}">
