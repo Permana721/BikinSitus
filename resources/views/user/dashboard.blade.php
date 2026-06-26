@@ -41,7 +41,7 @@
                     <div class="hidden sm:block w-px h-4 bg-slate-300 dark:bg-slate-700"></div>
                     <div class="flex items-center gap-3">
                         <svg class="w-4 h-4 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path></svg>
-                        <span>{{ count($templates) }} Template Tersedia</span>
+                        <span>{{ $totalTemplates }} Template Tersedia</span>
                     </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@
                                 <img src="{{ $thumbnailUrl }}" alt="Preview" class="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-700 ease-out">
                             @endif
                             <div class="absolute inset-0 bg-slate-900/20 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 flex items-center justify-center gap-4 transition-opacity duration-300">
-                                <a href="{{ route('user.editor', $project->id) }}" class="px-5 py-2.5 bg-white text-slate-900 text-sm font-semibold rounded-full hover:scale-105 transition-transform shadow-lg">Lanjutkan Edit</a>
+                                <a href="{{ \Illuminate\Support\Facades\URL::signedRoute('user.editor', $project->id) }}" class="px-5 py-2.5 bg-white text-slate-900 text-sm font-semibold rounded-full hover:scale-105 transition-transform shadow-lg">Lanjutkan Edit</a>
                             </div>
                         </div>
                         <div class="px-2 pb-2 flex-grow flex flex-col justify-between">
