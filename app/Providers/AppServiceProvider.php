@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\User;
+use App\Observers\UserObserver;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Event;
 use SocialiteProviders\Manager\SocialiteWasCalled;
@@ -22,6 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Register the UserObserver to auto-record tier-change transactions.
+        User::observe(UserObserver::class);
+
         Event::listen(
             SocialiteWasCalled::class,
             [InstagramExtendSocialite::class, 'handle']
