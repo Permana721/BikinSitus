@@ -61,7 +61,7 @@ class EditorController extends Controller
             \Illuminate\Support\Facades\File::copyDirectory($sourcePath, $destPath);
         }
 
-        return redirect()->route('user.editor', $project->id);
+        return redirect()->to(\Illuminate\Support\Facades\URL::signedRoute('user.editor', $project->id));
     }
 
     public function destroyProject(\App\Models\Project $project)
@@ -111,7 +111,7 @@ class EditorController extends Controller
         \Illuminate\Support\Facades\File::makeDirectory($destPath, 0755, true, true);
         \Illuminate\Support\Facades\File::copyDirectory($sourcePath, $destPath);
 
-        return redirect()->route('user.editor', $project->id)->with('success', 'Project berhasil direset ke template asal.');
+        return redirect()->to(\Illuminate\Support\Facades\URL::signedRoute('user.editor', $project->id))->with('success', 'Project berhasil direset ke template asal.');
     }
 
     public function show(\App\Models\Project $project)
