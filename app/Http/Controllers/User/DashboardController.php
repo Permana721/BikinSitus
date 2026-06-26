@@ -20,6 +20,7 @@ class DashboardController extends Controller
 
     public function dashboard()
     {
+        $totalTemplates = Template::where('is_active', true)->count();
         $templates = Template::with('category')
                        ->where('is_active', true)
                        ->inRandomOrder()
@@ -31,7 +32,7 @@ class DashboardController extends Controller
                       ->latest()
                       ->get();
                       
-        return view('user.dashboard', compact('templates', 'projects'));
+        return view('user.dashboard', compact('templates', 'projects', 'totalTemplates'));
     }
 
     public function profile()
