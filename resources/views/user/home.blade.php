@@ -39,9 +39,7 @@
     }
 </style>
 <main class="grow relative z-10 overflow-hidden">
-    <!-- HERO SECTION -->
     <section class="relative pt-24 pb-20 md:pt-32 md:pb-32 lg:min-h-[85vh] flex items-center">
-        <!-- background blur circles -->
         <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
             <div class="absolute top-[10%] left-[5%] w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-[128px] opacity-30 animate-pulse"></div>
             <div class="absolute bottom-[20%] right-[10%] w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-[128px] opacity-30 animate-pulse" style="animation-delay: 2s;"></div>
@@ -49,7 +47,6 @@
         
         <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
             <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-8">
-                <!-- Text Content -->
                 <div class="lg:w-1/2 text-center lg:text-left">
                     <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6 leading-[1.15]">
                         Buat Website Impian <br>
@@ -100,13 +97,11 @@
                     </div>
                 </div>
                 
-                <!-- Hero Image/Mockup -->
                 <div class="lg:w-1/2 relative w-full max-w-2xl lg:max-w-none">
                     <div class="relative rounded-2xl overflow-hidden ">
                         <img src="{{ asset('assets/img/hero-mockup.png') }}" width="612" height="408" fetchpriority="high" alt="Happy user holding laptop" class="w-full h-auto object-cover md:object-contain drop-shadow-2xl translate-y-4 md:translate-y-8 group-hover:translate-y-2 md:group-hover:translate-y-4 transition-transform duration-700">
                     </div>
                     
-                    <!-- Floating Cards to simulate UI -->
                     <div class="flex absolute bottom-4 left-4 md:-left-12 md:bottom-12 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md p-2 md:p-4 rounded-lg md:rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 items-center gap-2 md:gap-4 animate-custom-float">
                         <div class="w-6 h-6 md:w-10 md:h-10 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400 shrink-0">
                             <svg class="w-3.5 h-3.5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
@@ -121,7 +116,6 @@
         </div>
     </section>
 
-    <!-- SPONSORS / LOGOS -->
     <section class="py-10 border-y border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 relative z-10">
         <div class="max-w-7xl mx-auto px-6 overflow-hidden">
             <p class="text-center text-sm font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest mb-6">Cocok untuk berbagai industri</p>
@@ -135,7 +129,6 @@
         </div>
     </section>
 
-    <!-- FEATURES SECTION -->
     <section class="py-24 relative z-10 bg-white dark:bg-slate-900">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center max-w-3xl mx-auto mb-16">
@@ -144,7 +137,6 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Feature 1 -->
                 <div class="bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 hover:shadow-xl transition-all group">
                     <div class="w-14 h-14 bg-blue-100 dark:bg-blue-900/40 rounded-2xl flex items-center justify-center text-blue-600 dark:text-blue-400 mb-6 group-hover:scale-110 transition-transform">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path></svg>
@@ -153,7 +145,6 @@
                     <p class="text-slate-600 dark:text-slate-400">Atur tata letak dengan mudah. Pindahkan elemen, ubah warna, dan sesuaikan teks secara langsung.</p>
                 </div>
                 
-                <!-- Feature 2 -->
                 <div class="bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 hover:shadow-xl transition-all group">
                     <div class="w-14 h-14 bg-purple-100 dark:bg-purple-900/40 rounded-2xl flex items-center justify-center text-purple-600 dark:text-purple-400 mb-6 group-hover:scale-110 transition-transform">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
@@ -162,19 +153,17 @@
                     <p class="text-slate-600 dark:text-slate-400">Website Anda akan secara otomatis menyesuaikan tampilan agar sempurna di desktop, tablet, maupun mobile.</p>
                 </div>
                 
-                <!-- Feature 3 -->
                 <div class="bg-slate-50 dark:bg-slate-800/50 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 hover:shadow-xl transition-all group">
-                    <div class="w-14 h-14 bg-green-100 dark:bg-green-900/40 rounded-2xl flex items-center justify-center text-green-600 dark:text-green-400 mb-6 group-hover:scale-110 transition-transform">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <div class="w-14 h-14 bg-orange-100 dark:bg-orange-900/40 rounded-2xl flex items-center justify-center text-orange-600 dark:text-orange-400 mb-6 group-hover:scale-110 transition-transform">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">SEO Optimized & Cepat</h3>
-                    <p class="text-slate-600 dark:text-slate-400">Dibuat dengan kode yang bersih agar website Anda memuat lebih cepat dan mudah ditemukan di Google.</p>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Template Premium Profesional</h3>
+                    <p class="text-slate-600 dark:text-slate-400">Tersedia puluhan pilihan desain eksklusif yang dirancang khusus untuk meningkatkan kredibilitas dan penjualan bisnismu.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- HOW IT WORKS SECTION -->
     <section id="how-it-works" class="py-24 relative z-10 bg-slate-50 dark:bg-slate-900/30">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center max-w-3xl mx-auto mb-16">
@@ -182,10 +171,8 @@
             </div>
             
             <div class="flex flex-col md:flex-row items-center md:items-start justify-between relative gap-12 md:gap-4 w-full">
-                <!-- Line connector for desktop -->
                 <div class="hidden md:block absolute top-12 left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-200 dark:from-slate-700 dark:via-blue-600 dark:to-slate-700 -z-10"></div>
                 
-                <!-- Step 1 -->
                 <div class="w-full flex-1 text-center relative">
                     <div class="w-24 h-24 mx-auto bg-white dark:bg-slate-800 rounded-full flex items-center justify-center text-3xl font-black text-blue-600 dark:text-blue-400 shadow-xl border-4 border-slate-50 dark:border-slate-900 mb-6">
                         1
@@ -194,7 +181,6 @@
                     <p class="text-slate-600 dark:text-slate-400 max-w-xs mx-auto text-sm">Pilih desain dari puluhan template siap pakai yang disesuaikan dengan kategorimu.</p>
                 </div>
                 
-                <!-- Step 2 -->
                 <div class="w-full flex-1 text-center relative">
                     <div class="w-24 h-24 mx-auto bg-white dark:bg-slate-800 rounded-full flex items-center justify-center text-3xl font-black text-blue-600 dark:text-blue-400 shadow-xl border-4 border-slate-50 dark:border-slate-900 mb-6">
                         2
@@ -203,7 +189,6 @@
                     <p class="text-slate-600 dark:text-slate-400 max-w-xs mx-auto text-sm">Ganti teks, gambar, dan warna sesuai dengan identitas <i>brand</i> kamu.</p>
                 </div>
                 
-                <!-- Step 3 -->
                 <div class="w-full flex-1 text-center relative">
                     <div class="w-24 h-24 mx-auto bg-blue-600 text-white rounded-full flex items-center justify-center text-3xl font-black shadow-xl shadow-blue-600/30 border-4 border-slate-50 dark:border-slate-900 mb-6">
                         <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
@@ -215,7 +200,6 @@
         </div>
     </section>
 
-    <!-- TEMPLATES SECTION -->
     <section id="templates" class="py-24 overflow-hidden bg-white dark:bg-slate-900 relative z-10">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
@@ -285,7 +269,30 @@
         </div>
     </section>
 
-    
+    <section class="py-20 relative z-10 bg-white dark:bg-slate-900">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="bg-slate-50 dark:bg-slate-800/40 rounded-[2rem] p-10 md:p-16 text-center border border-slate-100 dark:border-slate-700/80 relative overflow-hidden transition-all hover:border-slate-200 dark:hover:border-slate-600">
+                <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-600 to-blue-400"></div>
+                <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
+                
+                <div class="relative z-10">
+                    <div class="w-16 h-16 mx-auto bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400 mb-6">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">Butuh Website Kustom?</h2>
+                    <p class="text-slate-600 dark:text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+                        Jika Anda tidak menemukan template yang cocok, atau memerlukan fitur spesifik untuk bisnis Anda, tim developer kami siap membangun website impian Anda dari awal.
+                    </p>
+                    <a href="https://wa.me/628978657617?text=Halo%20Admin%20Bisite,%20saya%20tertarik%20untuk%20membuat%20website%20khusus%20(custom)%20sesuai%20kebutuhan%20saya.%20Bisa%20bantu%20berikan%20informasi%20lebih%20lanjut?" target="_blank" class="inline-flex items-center justify-center gap-3 bg-green-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-green-700 transition-all shadow-lg shadow-green-600/30 hover:shadow-xl hover:-translate-y-1">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                        Hubungi Developer Kami
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="pricing" class="py-24 relative z-10 bg-slate-50 dark:bg-slate-900/30 border-y border-slate-200 dark:border-slate-800">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center max-w-3xl mx-auto mb-16">
@@ -294,7 +301,6 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                <!-- Lite Tier -->
                 <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all flex flex-col relative overflow-hidden">
                     @if(auth()->check() && auth()->user()->tier === 'lite')
                         <div class="mb-4 self-start inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 text-[10px] font-bold uppercase tracking-wider border border-blue-200/50 dark:border-blue-800/50">
@@ -337,7 +343,6 @@
                     @endif
                 </div>
 
-                <!-- Pro Tier -->
                 <div class="bg-blue-700 rounded-3xl p-8 border border-blue-700 shadow-2xl shadow-blue-700/30 transform md:-translate-y-4 flex flex-col relative">
                     <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-orange-400 to-pink-500 text-white text-xs font-bold uppercase tracking-wider py-1.5 px-4 rounded-full shadow-lg">
                         Paling Populer
@@ -350,9 +355,15 @@
                     @endif
                     <h3 class="text-2xl font-bold text-white mb-2">Pro</h3>
                     <p class="text-white text-sm mb-6">Cocok untuk UMKM dan pekerja profesional.</p>
-                    <div class="mb-8 flex items-baseline gap-2">
-                        <span class="text-4xl font-extrabold text-white">Rp 50rb</span>
-                        <span class="text-white text-sm">/sekali bayar</span>
+                    <div class="mb-8 flex flex-col gap-1">
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm line-through text-white/70">Rp 50rb</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-gradient-to-r from-orange-400 to-pink-500 text-white tracking-wider animate-pulse">PROMO</span>
+                        </div>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-4xl font-extrabold text-white">Rp 25rb</span>
+                            <span class="text-white text-sm">/sekali bayar</span>
+                        </div>
                     </div>
                     <ul class="space-y-4 mb-8 flex-1">
                         <li class="flex items-start gap-3 text-white">
@@ -390,7 +401,6 @@
                     @endif
                 </div>
 
-                <!-- Elite Tier -->
                 <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all flex flex-col relative overflow-hidden">
                     @if(auth()->check() && auth()->user()->tier === 'elite')
                         <div class="mb-4 self-start inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 text-[10px] font-bold uppercase tracking-wider border border-purple-200/50 dark:border-purple-800/50">
@@ -400,9 +410,15 @@
                     @endif
                     <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Elite</h3>
                     <p class="text-slate-600 dark:text-slate-400 text-sm mb-6">Solusi lengkap untuk skala korporat.</p>
-                    <div class="mb-8 flex items-baseline gap-2">
-                        <span class="text-4xl font-extrabold text-slate-900 dark:text-white">Rp 75rb</span>
-                        <span class="text-slate-600 dark:text-slate-400 text-sm">/sekali bayar</span>
+                    <div class="mb-8 flex flex-col gap-1">
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm line-through text-slate-400 dark:text-slate-500">Rp 75rb</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-gradient-to-r from-purple-500 to-indigo-500 text-white tracking-wider animate-pulse">PROMO</span>
+                        </div>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-4xl font-extrabold text-slate-900 dark:text-white">Rp 50rb</span>
+                            <span class="text-slate-600 dark:text-slate-400 text-sm">/sekali bayar</span>
+                        </div>
                     </div>
                     <ul class="space-y-4 mb-8 flex-1">
                         <li class="flex items-start gap-3 text-slate-600 dark:text-slate-300">
@@ -445,12 +461,10 @@
         </div>
     </section>
 
-    <!-- FINAL CTA SECTION -->
     @guest
     <section class="py-24 relative z-10 px-6">
         <div class="max-w-6xl mx-auto">
             <div class="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[3rem] p-10 md:p-16 text-center md:text-left flex flex-col md:flex-row items-center justify-between relative overflow-hidden shadow-2xl shadow-blue-600/30">
-                <!-- Decorative elements -->
                 <div class="absolute top-0 right-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMiIgZmlsbD0iI2ZmZiIgZmlsbC1vcGFjaXR5PSIwLjE1Ii8+PC9zdmc+')] opacity-40"></div>
                 <div class="absolute -top-24 -right-24 w-64 h-64 bg-white rounded-full mix-blend-overlay opacity-10 blur-2xl"></div>
                 <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-white rounded-full mix-blend-overlay opacity-10 blur-2xl"></div>
@@ -470,7 +484,6 @@
     </section>
     @endguest
 
-    <!-- AUTH ALERT MODAL (Existing) -->
     <div id="auth-alert-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
         <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" onclick="closeAuthAlert()"></div>
         
@@ -497,7 +510,6 @@
         </div>
     </div>
 
-    <!-- IMAGE MODAL (Existing) -->
     <div id="image-modal" class="fixed inset-0 z-[60] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
         <div class="absolute inset-0 bg-slate-900/95 backdrop-blur-md transition-opacity" onclick="closeImageModal()"></div>
         <div class="relative z-10 max-w-6xl w-[calc(100%-2rem)] flex flex-col items-center transform scale-95 transition-transform duration-300" id="image-modal-content">
@@ -508,24 +520,20 @@
             <p id="modal-image-title" class="text-white mt-4 md:mt-6 font-bold text-lg md:text-xl tracking-wide text-center"></p>
         </div>
     </div>
-    <!-- UPGRADE TIER MODAL -->
     <div id="upgrade-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
         <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeUpgradeModal()"></div>
         <div id="upgrade-modal-box" class="relative bg-white dark:bg-slate-800 p-8 rounded-[2rem] shadow-2xl shadow-blue-900/20 dark:shadow-black/50 max-w-sm w-full mx-6 transform scale-95 transition-all duration-300 border border-slate-100 dark:border-slate-700">
             
-            <!-- Icon -->
             <div class="flex items-center justify-center w-16 h-16 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-400 to-green-500 shadow-lg shadow-green-500/30">
                 <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
                 </svg>
             </div>
 
-            <!-- Badge tier -->
             <div class="text-center mb-1">
                 <span id="upgrade-tier-badge" class="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400">Paket Pro</span>
             </div>
 
-            <!-- Title & desc -->
             <h3 class="text-xl font-extrabold text-center text-slate-900 dark:text-white mb-3 tracking-tight mt-3">Upgrade Tier via WhatsApp</h3>
             <p class="text-center text-slate-600 dark:text-slate-400 mb-2 leading-relaxed text-sm">
                 BikinWebsite masih dalam tahap pengembangan. Untuk upgrade ke paket 
@@ -534,7 +542,6 @@
             </p>
             <p class="text-center text-xs text-slate-500 dark:text-slate-400 mb-6">Proses cepat &amp; aman. Tim kami siap membantu! 🚀</p>
 
-            <!-- Buttons -->
             <div class="flex flex-col gap-3">
                 <a id="upgrade-wa-btn" href="https://wa.me/628978657617" target="_blank" rel="noopener noreferrer"
                     class="w-full flex items-center justify-center gap-2.5 px-4 py-3.5 rounded-2xl font-bold text-white bg-emerald-500 hover:bg-emerald-600 transition-colors shadow-lg shadow-emerald-500/30">
@@ -554,9 +561,7 @@
 <script>
     const isLoggedIn = {{ auth()->check() ? 'true' : 'false' }};
 
-    // SCROLL REVEAL & COUNTING ANIMATION
     document.addEventListener('DOMContentLoaded', () => {
-        // 1. Counting Animation Function
         function animateValue(id, start, end, duration) {
             const obj = document.getElementById(id);
             if (!obj) return;
@@ -564,7 +569,6 @@
             const step = (timestamp) => {
                 if (!startTimestamp) startTimestamp = timestamp;
                 const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                // Ease out quintic for a very smooth slow-down at the end
                 const easeOut = 1 - Math.pow(1 - progress, 5);
                 const current = Math.floor(easeOut * (end - start) + start);
                 obj.innerHTML = current.toLocaleString('en-US');
@@ -577,7 +581,6 @@
             window.requestAnimationFrame(step);
         }
 
-        // 2. Initialize ScrollReveal
         if (typeof ScrollReveal !== 'undefined') {
             const sr = ScrollReveal({
                 distance: '40px',
@@ -587,41 +590,32 @@
                 scale: 0.9,
             });
 
-            // Hero Section
             sr.reveal('.lg\\:w-1\\/2.text-center.lg\\:text-left > h1', { origin: 'bottom', delay: 100 });
             sr.reveal('.lg\\:w-1\\/2.text-center.lg\\:text-left > p', { origin: 'bottom', delay: 200 });
             sr.reveal('.lg\\:w-1\\/2.text-center.lg\\:text-left > div', { origin: 'bottom', delay: 300 });
             sr.reveal('.lg\\:w-1\\/2.relative', { origin: 'right', delay: 200 });
 
-            // Animate Counter when it appears
             sr.reveal('#userCount', {
                 delay: 400,
                 beforeReveal: function (el) {
-                    animateValue("userCount", 1, 1000, 5000); // 5000ms = 5 detik
+                    animateValue("userCount", 1, 1000, 5000); 
                 }
             });
 
-            // Sponsors
             sr.reveal('section.py-10 .flex-wrap span', { origin: 'bottom', interval: 100, delay: 100 });
 
-            // Features Section
             sr.reveal('.grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3 > div', { origin: 'bottom', interval: 150, delay: 100 });
 
-            // How it Works
             sr.reveal('#how-it-works .flex-1', { origin: 'bottom', interval: 200, delay: 100 });
 
-            // Templates Header
             sr.reveal('#templates h2, #templates p', { origin: 'left', interval: 100 });
 
-            // Pricing Section
             sr.reveal('#pricing .grid > div', { origin: 'bottom', interval: 200, delay: 100 });
 
-            // Final CTA
             sr.reveal('.bg-gradient-to-br.from-blue-600', { origin: 'bottom', distance: '80px', duration: 1200, delay: 100 });
         }
     });
 
-    // Upgrade Tier Modal
     const upgradeModal    = document.getElementById('upgrade-modal');
     const upgradeModalBox = document.getElementById('upgrade-modal-box');
 
